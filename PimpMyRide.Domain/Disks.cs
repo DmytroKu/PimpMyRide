@@ -1,6 +1,7 @@
 ﻿namespace PimpMyRide.Domain
 {
-    public class Class1
+    public class Disks : Parts
     {
+        
     }
 }
