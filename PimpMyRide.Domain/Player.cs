@@ -2,12 +2,14 @@
 {
     public class Player
     {
-        private decimal Money { get; }
+        public decimal Money { get; set; }
 
         public Player(decimal money)
         {
             Money = money;
         }
+
+        
             
     }
 }

@@ -55,41 +55,52 @@ namespace PimpMyRide.Domain
             if (Engine.IsBroken)
             {
                 Engine.Repair();
+                return;
             }
 
             if (Accumulator.IsBroken)
             {
                 Accumulator.Repair();
+                return;
             }
 
             if (Disks[1].IsBroken)
             {
                 Disks[1].Repair();
+                return;
             }
 
             if (Disks[0].IsBroken)
             {
                 Disks[0].Repair();
+                return;
             }
 
             if (Disks[2].IsBroken)
             {
                 Disks[2].Repair();
+                return;
             }
 
             if (Disks[3].IsBroken)
             {
                 Disks[3].Repair();
-                
+                return;
             }
         }
 
-        public bool CanRepair =>
-            Engine.CanRepair
-            && Accumulator.CanRepair
-            && Disks[1].CanRepair
-            && Disks[0].CanRepair
-            && Disks[2].CanRepair
-            && Disks[3].CanRepair;
+        public (bool repairable, decimal price) CanRepair
+        {
+            get
+            {
+                if (Engine.CanRepair.repairable) return Engine.CanRepair;
+                if (Accumulator.CanRepair.repairable) return Accumulator.CanRepair;
+                if (Disks[0].CanRepair.repairable) return Disks[0].CanRepair;
+                if (Disks[1].CanRepair.repairable) return Disks[1].CanRepair;
+                if (Disks[2].CanRepair.repairable) return Disks[2].CanRepair;
+                if (Disks[3].CanRepair.repairable) return Disks[3].CanRepair;
+                return (false, 0);
+            }
+        }
     }
 }
