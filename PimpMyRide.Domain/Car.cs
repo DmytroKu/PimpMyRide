@@ -32,5 +32,10 @@ namespace PimpMyRide.Domain
             }
             
         }
+
+        public bool CanMove()
+        {
+            return true;
+        }
     }
 }
