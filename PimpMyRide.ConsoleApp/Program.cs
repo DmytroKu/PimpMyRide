@@ -20,7 +20,7 @@ namespace PimpMyRide.ConsoleApp
             };
 
             var car = new Car(engine, accumulator, disks);
-            for (int i = 0; i < 101; i++)
+            for (int i = 0; i < 1010; i++)
             {
                 if (car.CanMove())
                 {
@@ -30,7 +30,8 @@ namespace PimpMyRide.ConsoleApp
                 else
                 {
                     Console.WriteLine("Can't move");
-                    break;
+                    car.Repair();
+                    Console.WriteLine("Repaired");
                 }
             }
 

@@ -21,6 +21,11 @@
             Durability--;
         }
 
+        public void Repair()
+        {
+            Durability++;
+        }
+
         
     }
 }

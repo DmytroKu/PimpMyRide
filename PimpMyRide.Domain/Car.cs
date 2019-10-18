@@ -29,16 +29,25 @@ namespace PimpMyRide.Domain
             foreach (var disks in Disks)
             {
                 disks.DecreaseDurability();
-                
             }
         }
 
-        public bool CanMove()
+        public bool CanMove() =>
+            !Engine.IsBroken
+            && !Accumulator.IsBroken
+            && !Disks[1].IsBroken
+            && !Disks[0].IsBroken
+            && !Disks[2].IsBroken
+            && !Disks[3].IsBroken;
+
+        public void Repair()
         {
-            if (Engine.IsBroken || Accumulator.IsBroken
-                                || Disks[0].IsBroken || Disks[1].IsBroken
-                                || Disks[2].IsBroken || Disks[3].IsBroken) return false;
-            return true;
+            if(Engine.IsBroken) Engine.Repair();
+            if(Accumulator.IsBroken) Accumulator.Repair();
+            if(Disks[1].IsBroken) Disks[1].Repair();
+            if(Disks[0].IsBroken) Disks[0].Repair();
+            if(Disks[2].IsBroken) Disks[2].Repair();
+            if(Disks[3].IsBroken) Disks[3].Repair();
         }
     }
 }
