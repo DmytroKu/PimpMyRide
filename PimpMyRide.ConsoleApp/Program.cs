@@ -11,7 +11,14 @@ namespace PimpMyRide.ConsoleApp
             var player = new Player(0);
             var engine = new Engine(0, 0, false, 0);
             var accumulator = new Accumulator(0, 0, false, 0);
-            var disks = new Disks[4];
+            var disks = new Disks[]
+            {
+                new Disks(0,0,false,0), 
+                new Disks(0,0,false,0), 
+                new Disks(0,0,false,0), 
+                new Disks(0,0,false,0), 
+            };
+
             var car = new Car(engine, accumulator, disks);
             Console.WriteLine("Game over");
 

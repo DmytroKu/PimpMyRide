@@ -10,9 +10,14 @@ namespace PimpMyRide.Domain
 
         public Car(Engine engine, Accumulator accumulator, Disks[] disks)
         {
+            if (disks == null) throw new ArgumentNullException(nameof(disks));
+            if (disks.Length !=4) throw new ArgumentException("Car should contain 4 disks", nameof(disks));
+            foreach (var disk in disks)
+                if (disk == null)
+                    throw new ArgumentNullException(nameof(disk), "One of disk is null");
             Engine = engine ?? throw new ArgumentNullException(nameof(engine));
             Accumulator = accumulator ?? throw new ArgumentNullException(nameof(accumulator));
-            Disks = disks ?? throw new ArgumentNullException(nameof(disks));
+            Disks = disks;
         }
     }
 }
