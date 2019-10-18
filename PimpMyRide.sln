@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PimpMyRide.Domain", "PimpMyRide.Domain\PimpMyRide.Domain.csproj", "{B63C9E88-CD88-4363-819A-3381869A2D84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PimpMyRide.ConsoleApp", "PimpMyRide.ConsoleApp\PimpMyRide.ConsoleApp.csproj", "{500BEB42-2D60-414C-90B1-B0F7C2B2CF83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B63C9E88-CD88-4363-819A-3381869A2D84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B63C9E88-CD88-4363-819A-3381869A2D84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B63C9E88-CD88-4363-819A-3381869A2D84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{500BEB42-2D60-414C-90B1-B0F7C2B2CF83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{500BEB42-2D60-414C-90B1-B0F7C2B2CF83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{500BEB42-2D60-414C-90B1-B0F7C2B2CF83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{500BEB42-2D60-414C-90B1-B0F7C2B2CF83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
