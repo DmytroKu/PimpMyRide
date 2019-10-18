@@ -2,8 +2,8 @@
 {
     public class Engine : Part
     {
-        public Engine(int durability, decimal price, bool isBroken, int capacity) 
-            : base(durability, price, isBroken, capacity)
+        public Engine(int durability, decimal buyPrice, decimal repairPrice, bool isBroken, int capacity) 
+            : base(durability, buyPrice, repairPrice, isBroken, capacity)
         {
         }
     }

@@ -7,6 +7,7 @@ namespace PimpMyRide.Domain
         private Engine Engine { get; }
         private Accumulator Accumulator { get; }
         private Disks[] Disks { get; }
+        public int  way { get; set; }
 
         public Car(Engine engine, Accumulator accumulator, Disks[] disks)
         {
@@ -18,6 +19,18 @@ namespace PimpMyRide.Domain
             Engine = engine ?? throw new ArgumentNullException(nameof(engine));
             Accumulator = accumulator ?? throw new ArgumentNullException(nameof(accumulator));
             Disks = disks;
+        }
+
+        public void  Move()
+        {
+            way += 10;
+            Engine.decreaseDurability();
+            Accumulator.decreaseDurability();
+            foreach (var disks in Disks)
+            {
+                disks.decreaseDurability();
+            }
+            
         }
     }
 }
