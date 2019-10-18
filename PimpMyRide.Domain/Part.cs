@@ -5,21 +5,22 @@
         private int  Durability { get; set; }
         private decimal BuyPrice { get; }
         private decimal RepairPrice { get; }
-        private bool IsBroken { get; }
+        public bool IsBroken => Durability <= 0;
         private int  Capacity { get; }
 
-        protected Part(int durability, decimal buyPrice, decimal repairPrice, bool isBroken, int capacity)
+        protected Part(int durability, decimal buyPrice, decimal repairPrice, int capacity)
         {
             Durability = durability;
             BuyPrice = buyPrice;
             RepairPrice = repairPrice;
-            IsBroken = isBroken;
             Capacity = capacity;
         }
 
-        public void decreaseDurability()
+        public void DecreaseDurability()
         {
-            Durability -= 2;
+            Durability--;
         }
+
+        
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace PimpMyRide.Domain
 {
-    public class Engine : Part
+    public class Disk : Part
     {
-        public Engine(int durability, decimal buyPrice, decimal repairPrice, int capacity) 
+        public Disk(int durability, decimal buyPrice, decimal repairPrice, int capacity) 
             : base(durability, buyPrice, repairPrice, capacity)
         {
         }

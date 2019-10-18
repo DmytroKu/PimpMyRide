@@ -6,13 +6,13 @@ namespace PimpMyRide.Domain
     {
         private Engine Engine { get; }
         private Accumulator Accumulator { get; }
-        private Disks[] Disks { get; }
-        public int  way { get; set; }
+        private Disk[] Disks { get; }
+        public int way { get; set; }
 
-        public Car(Engine engine, Accumulator accumulator, Disks[] disks)
+        public Car(Engine engine, Accumulator accumulator, Disk[] disks)
         {
             if (disks == null) throw new ArgumentNullException(nameof(disks));
-            if (disks.Length !=4) throw new ArgumentException("Car should contain 4 disks", nameof(disks));
+            if (disks.Length != 4) throw new ArgumentException("Car should contain 4 disks", nameof(disks));
             foreach (var disk in disks)
                 if (disk == null)
                     throw new ArgumentNullException(nameof(disk), "One of disk is null");
@@ -21,20 +21,23 @@ namespace PimpMyRide.Domain
             Disks = disks;
         }
 
-        public void  Move()
+        public void Move()
         {
             way += 10;
-            Engine.decreaseDurability();
-            Accumulator.decreaseDurability();
+            Engine.DecreaseDurability();
+            Accumulator.DecreaseDurability();
             foreach (var disks in Disks)
             {
-                disks.decreaseDurability();
+                disks.DecreaseDurability();
+                
             }
-            
         }
 
         public bool CanMove()
         {
+            if (Engine.IsBroken || Accumulator.IsBroken
+                                || Disks[0].IsBroken || Disks[1].IsBroken
+                                || Disks[2].IsBroken || Disks[3].IsBroken) return false;
             return true;
         }
     }
