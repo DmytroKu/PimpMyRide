@@ -9,14 +9,14 @@ namespace PimpMyRide.ConsoleApp
         {
             Console.WriteLine("Game started");
             var player = new Player(0);
-            var engine = new Engine(100, 0, 0, 0);
-            var accumulator = new Accumulator(100, 0, 0, 0);
+            var engine = new Engine(100, 0, 0, 52);
+            var accumulator = new Accumulator(100, 0, 0, 4);
             var disks = new Disk[]
             {
-                new Disk(100, 0, 0, 0),
-                new Disk(100, 0, 0, 0),
-                new Disk(100, 0, 0, 0),
-                new Disk(100, 0, 0, 0),
+                new Disk(100, 0, 0, 2),
+                new Disk(100, 0, 0, 6),
+                new Disk(100, 0, 0, 4),
+                new Disk(100, 0, 0, 5),
             };
 
             var car = new Car(engine, accumulator, disks);
@@ -30,12 +30,21 @@ namespace PimpMyRide.ConsoleApp
                 else
                 {
                     Console.WriteLine("Can't move");
-                    car.Repair();
-                    Console.WriteLine("Repaired");
+                    if (car.CanRepair)
+                    {
+                        car.Repair();
+                        Console.WriteLine("Repaired");
+                    }
+                    else
+                    {
+                        car.Replace();
+                        Console.WriteLine("Replaced");
+                    }
                 }
             }
 
             Console.WriteLine("Game over");
+            Console.Read();
         }
     }
 }

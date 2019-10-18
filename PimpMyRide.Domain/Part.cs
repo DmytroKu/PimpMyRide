@@ -1,15 +1,19 @@
-﻿namespace PimpMyRide.Domain
+﻿using System;
+
+namespace PimpMyRide.Domain
 {
-   public abstract class Part
+    public abstract class Part
     {
-        private int  Durability { get; set; }
+        private int Durability { get; set; }
         private decimal BuyPrice { get; }
         private decimal RepairPrice { get; }
         public bool IsBroken => Durability <= 0;
-        private int  Capacity { get; }
+        private int Capacity { get; set; }
 
         protected Part(int durability, decimal buyPrice, decimal repairPrice, int capacity)
         {
+            if (durability <= 0 || durability > 100) throw new ArgumentOutOfRangeException(nameof(durability));
+            if (capacity <= 0 || capacity > 100) throw new ArgumentOutOfRangeException(nameof(capacity));
             Durability = durability;
             BuyPrice = buyPrice;
             RepairPrice = repairPrice;
@@ -24,8 +28,15 @@
         public void Repair()
         {
             Durability++;
+            Capacity--;
         }
 
-        
+        public void Replace()
+        {
+            Durability = 100;
+            Capacity = 100;
+        }
+
+        public bool CanRepair => Capacity > 0;
     }
 }
