@@ -31,10 +31,11 @@ namespace PimpMyRide.Domain
             Capacity--;
         }
 
-        public void Replace()
+        public decimal Replace()
         {
             Durability = 100;
             Capacity = 100;
+            return BuyPrice;
         }
 
         public (bool repairable, decimal price) CanRepair => (Capacity > 0, RepairPrice);

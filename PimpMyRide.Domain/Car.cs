@@ -7,7 +7,7 @@ namespace PimpMyRide.Domain
         private Engine Engine { get; }
         private Accumulator Accumulator { get; }
         private Disk[] Disks { get; }
-        public int way { get; set; }
+        private int way { get; set; }
 
         public Car(Engine engine, Accumulator accumulator, Disk[] disks)
         {
@@ -40,14 +40,39 @@ namespace PimpMyRide.Domain
             && !Disks[2].IsBroken
             && !Disks[3].IsBroken;
 
-        public void Replace()
+        public decimal Replace()
         {
-            Engine.Replace();
-            Accumulator.Replace();
-            Disks[1].Replace();
-            Disks[0].Replace();
-            Disks[2].Replace();
-            Disks[3].Replace();
+            if (Engine.IsBroken)
+            {
+                return Engine.Replace();
+            }
+
+            if (Accumulator.IsBroken)
+            {
+                return Accumulator.Replace();
+            }
+
+            if (Disks[1].IsBroken)
+            {
+                return Disks[1].Replace();
+            }
+
+            if (Disks[0].IsBroken)
+            {
+                return Disks[0].Replace();
+            }
+
+            if (Disks[2].IsBroken)
+            {
+               return  Disks[2].Replace();
+            }
+
+            if (Disks[3].IsBroken)
+            {
+               return Disks[3].Replace();
+            }
+
+            return 0;
         }
 
         public void Repair()

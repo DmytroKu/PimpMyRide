@@ -9,18 +9,18 @@ namespace PimpMyRide.ConsoleApp
         {
             Console.WriteLine("Game started");
             var player = new Player(1000);
-            var engine = new Engine(100, 0, 25, 52);
-            var accumulator = new Accumulator(100, 0, 14, 4);
+            var engine = new Engine(100, 150, 25, 25);
+            var accumulator = new Accumulator(100, 80, 14, 20);
             var disks = new Disk[]
             {
-                new Disk(100, 0, 10, 2),
-                new Disk(100, 0, 15, 6),
-                new Disk(100, 0, 15, 4),
-                new Disk(100, 0, 16, 5),
+                new Disk(100, 45, 15, 30),
+                new Disk(100, 0, 15, 30),
+                new Disk(100, 0, 15, 30),
+                new Disk(100, 0, 15, 30),
             };
 
             var car = new Car(engine, accumulator, disks);
-            for (int i = 0; i < 1010; i++)
+            for (int i = 0; i < 101; i++)
             {
                 if (car.CanMove())
                 {
@@ -31,6 +31,7 @@ namespace PimpMyRide.ConsoleApp
                 {
                     Console.WriteLine("Can't move");
                     var receipt = car.CanRepair;
+                    var ReplaceCost=
                     if (receipt.repairable)
                     {
 
@@ -39,7 +40,7 @@ namespace PimpMyRide.ConsoleApp
                         player.Money -= receipt.price;
                         Console.WriteLine($"Price:{receipt.price}\nBalance:{player.Money}");
                     }
-                    else
+                    else if(player.Money>)
                     {
                         car.Replace();
                         Console.WriteLine("Replaced");
