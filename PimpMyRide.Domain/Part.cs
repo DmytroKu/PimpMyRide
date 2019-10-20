@@ -38,6 +38,6 @@ namespace PimpMyRide.Domain
             
         }
 
-        public (bool repairable, decimal price,bool isBroken) CanRepair => (Capacity > 0, RepairPrice,IsBroken);
+        public bool Repairable => (Capacity > 0);
     }
 }

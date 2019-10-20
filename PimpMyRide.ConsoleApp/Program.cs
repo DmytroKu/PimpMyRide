@@ -9,7 +9,7 @@ namespace PimpMyRide.ConsoleApp
         {
             Console.WriteLine("Game started");
             var player = new Player(1000);
-            var engine = new Engine(100, 150, 40, 25);
+            var engine = new Engine(100, 1500, 40, 25);
             var accumulator = new Accumulator(70, 80, 25, 20);
             var disks = new Disk[]
             {
@@ -20,9 +20,8 @@ namespace PimpMyRide.ConsoleApp
             };
             int choice;
             var car = new Car(engine, accumulator, disks);
-            do
+            while (true)
             {
-                ShowState(car);
                 Console.WriteLine($"Your balance is:{player.Money}");
 
                 if (player.Money <= 0)
@@ -32,16 +31,17 @@ namespace PimpMyRide.ConsoleApp
                 }
 
                 Console.WriteLine("1-Move");
-                Console.WriteLine("2-Repair");
-                Console.WriteLine("3-Replace");
-                Console.WriteLine("4-End game");
-                while (!int.TryParse(Console.ReadLine(), out choice)&&(choice>4||choice<1))
+                Console.WriteLine("2-End Game");
+                Console.WriteLine("3x-Repair");
+                Console.WriteLine("4x-Replace");
+                ShowState(car);
+                while (!int.TryParse(Console.ReadLine(), out choice))
                 {
                     Console.WriteLine("Invalid number");
                     Console.WriteLine("Try again");
                 }
 
-                var receipt = car.CanRepair;
+
                 if (choice == 1)
                 {
                     if (car.CanMove)
@@ -54,52 +54,104 @@ namespace PimpMyRide.ConsoleApp
                         Console.WriteLine("Can't move\nRepair your car");
                     }
                 }
+                else if (choice == 2) break;
+                else if (choice == 31)
+                {
+                    RepairPart(car.Engine, player);
+                }
+                else if (choice == 32)
+                {
+                    RepairPart(car.Accumulator, player);
+                }
+                else if (choice == 33)
+                {
+                    RepairPart(car.Disks[0], player);
+                }
+                else if (choice == 34)
+                {
+                    RepairPart(car.Disks[1], player);
+                }
+                else if (choice == 35)
+                {
+                    RepairPart(car.Disks[2], player);
+                }
+                else if (choice == 36)
+                {
+                    RepairPart(car.Disks[3], player);
+                }
 
-                else if (choice == 2)
+                else if (choice == 41)
                 {
-                    if (receipt.repairable)
-                    {
-                        if (player.Money >= receipt.repairPrice)
-                        {
-                            player.Money -= receipt.repairPrice;
-                            car.Repair();
-                            Console.WriteLine("Repaired");
-                        }
-                        else Console.WriteLine("Not enough money for repair");
-                    }
-                    else Console.WriteLine("Cannot repair");
+                    ReplacePart(car.Engine, player);
                 }
-                else if (choice == 3)
+                else if (choice == 42)
                 {
-                    if (car.ReplaceCost < player.Money)
-                    {
-                        player.Money -= car.ReplaceCost;
-                        car.Replace();
-                        Console.WriteLine("Replaced");
-                    }
-                    else Console.WriteLine("Not enough money for replace");
+                    ReplacePart(car.Accumulator, player);
                 }
-                else if (choice == 4) break;
-            } while (choice != 4);
+                else if (choice == 44)
+                {
+                    ReplacePart(car.Disks[0], player);
+                }
+                else if (choice == 44)
+                {
+                    ReplacePart(car.Disks[1], player);
+                }
+                else if (choice == 45)
+                {
+                    ReplacePart(car.Disks[2], player);
+                }
+                else if (choice == 46)
+                {
+                    ReplacePart(car.Disks[3], player);
+                }
+                else Console.WriteLine("Nothing to do");
+            }
 
             Console.WriteLine("Game over");
+            Console.WriteLine($"Final score is:{car.Way}");
             Console.Read();
+        }
+
+        private static void ReplacePart(Part part, Player player)
+        {
+            if (part.BuyPrice < player.Money)
+            {
+                player.Money -= part.BuyPrice;
+                part.Replace();
+                Console.WriteLine("Replaced");
+            }
+            else Console.WriteLine("Not enough money for replace");
+        }
+
+        private static void RepairPart(Part part, Player player)
+        {
+            if (part.Repairable)
+            {
+                if (player.Money >= part.RepairPrice)
+                {
+                    player.Money -= part.RepairPrice;
+                    part.Repair();
+                    Console.WriteLine("Repaired");
+                }
+                else Console.WriteLine("Not enough money for repair");
+            }
+            else Console.WriteLine("Cannot repair");
         }
 
         private static void ShowState(Car car)
         {
             Console.WriteLine("State of car");
-            Console.Write("[Engine] ");
+            Console.Write("1.[Engine] ");
             ShowInfo(car.Engine);
-            Console.Write("[Accumulator] ");
+            Console.Write("2.[Accumulator] ");
             ShowInfo(car.Accumulator);
-            Console.Write("[Left front disk] ");
+            Console.Write("3.[Left front disk] ");
             ShowInfo(car.Disks[0]);
-            Console.Write("[Right front disk] ");
+            Console.Write("4.[Right front disk] ");
             ShowInfo(car.Disks[1]);
-            Console.Write("[Left rear disk] ");
+            Console.Write("5.[Left rear disk] ");
             ShowInfo(car.Disks[2]);
-            Console.Write("[Right rear disk] ");
+            Console.Write("6.[Right rear disk] ");
             ShowInfo(car.Disks[3]);
         }
 
