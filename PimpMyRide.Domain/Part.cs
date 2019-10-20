@@ -4,11 +4,11 @@ namespace PimpMyRide.Domain
 {
     public abstract class Part
     {
-        private int Durability { get; set; }
-        private decimal BuyPrice { get; }
-        private decimal RepairPrice { get; }
+        public int Durability {   get;  private set; }
+        public decimal BuyPrice { get; }
+        public decimal RepairPrice { get; }
         public bool IsBroken => Durability <= 0;
-        private int Capacity { get; set; }
+        public int Capacity { get;  private set;}
 
         protected Part(int durability, decimal buyPrice, decimal repairPrice, int capacity)
         {
@@ -22,12 +22,12 @@ namespace PimpMyRide.Domain
 
         public void DecreaseDurability()
         {
-            Durability-=5;
+            Durability--;
         }
 
         public void Repair()
         {
-            Durability+=10;
+            Durability=100;
             Capacity-=10;
         }
 
@@ -38,9 +38,6 @@ namespace PimpMyRide.Domain
             
         }
 
-        public (bool repairable, decimal price,int Durability,int Capacity) CanRepair => (Capacity > 0, RepairPrice,Durability,Capacity);
-        public decimal ReplaceCost => BuyPrice;
-        public int GetDurability => Durability;
-        public int GetCapacily => Capacity;
+        public (bool repairable, decimal price,bool isBroken) CanRepair => (Capacity > 0, RepairPrice,IsBroken);
     }
 }

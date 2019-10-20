@@ -22,6 +22,12 @@ namespace PimpMyRide.ConsoleApp
             var car = new Car(engine, accumulator, disks);
             do
             {
+               
+                if (player.Money <= 0)
+                {
+                    Console.WriteLine("Money is over");
+                    break;
+                }
                 Console.WriteLine("1-Move");
                 Console.WriteLine("2-Repair");
                 Console.WriteLine("3-Replace");
@@ -46,41 +52,44 @@ namespace PimpMyRide.ConsoleApp
                     {
                         Console.WriteLine("Can't move\nRepair your car");
                         Console.WriteLine("State of car");
-                        Console.WriteLine($"Engine durability and capacity:({engine.GetDurability}; {engine.GetCapacily})");
-                        Console.WriteLine($"Accumulator durability and capacity:({accumulator.GetDurability}; {accumulator.GetCapacily})");
-                        Console.WriteLine($"Left front disk  durability and capacity:({disks[0].GetDurability}; {disks[0].GetCapacily})");
-                        Console.WriteLine($"Right front disk durability and capacity:({disks[1].GetDurability}; {disks[1].GetCapacily})");
-                        Console.WriteLine($"Left rear disk durability and capacity:({disks[2].GetDurability}; {disks[2].GetCapacily})");
-                        Console.WriteLine($"Right rear disk durability and capacity:({disks[3].GetDurability}; {disks[3].GetCapacily})");
-                        Console.WriteLine($"Repair cost={receipt.price}\nReplaceCost={car.ReplaceCost}");
+                        Console.WriteLine($"Engine durability and capacity:({car.Engine.Durability}; {car.Engine.Capacity})");
+                        Console.WriteLine($"Accumulator durability and capacity:({car.Accumulator.Durability}; {car.Accumulator.Capacity})");
+                        Console.WriteLine($"Left front disk  durability and capacity:({car.Disks[0].Durability}; {car.Disks[0].Capacity})");
+                        Console.WriteLine($"Right front disk durability and capacity:({car.Disks[1].Durability}; {car.Disks[1].Capacity})");
+                        Console.WriteLine($"Left rear disk durability and capacity:({car.Disks[2].Durability}; {car.Disks[2].Capacity})");
+                        Console.WriteLine($"Right rear disk durability and capacity:({car.Disks[3].Durability}; {car.Disks[3].Capacity})");
+                        Console.WriteLine($"Repair cost={receipt.repairPrice}\nReplaceCost={car.ReplaceCost}");
                     }
                 }
 
                 else if (choice == 2)
                 {
-                    if (receipt.repairable&&receipt.Durability!=100)
-                    {
-                        car.Repair();
-                        Console.WriteLine("Repaired");
-                        player.Money -= receipt.price;
-                    }
-                    else if (receipt.Durability==100) Console.WriteLine("You dont need to repair detail");
-                    else Console.WriteLine("Cannot repair");
+                        if (receipt.repairable)
+                        {
+                            if (player.Money >= receipt.repairPrice)
+                            {
+                                player.Money -= receipt.repairPrice;
+                                car.Repair();
+                                Console.WriteLine("Repaired");
+                            }
+                            else Console.WriteLine("Not enough money for repair");
+
+                        }
+                        else Console.WriteLine("Cannot repair");
                 }
                 else if (choice == 3)
                 {
-                    if (car.ReplaceCost < player.Money&&!car.CanMove())
-                    {
-                        car.Replace();
-                        player.Money -= car.ReplaceCost;
-                        Console.WriteLine("Replaced");
-                    }
-                    else if(car.CanMove()) Console.WriteLine("You dont need to replace detail");
-                    else  Console.WriteLine("Cannot replace");
+                        if (car.ReplaceCost < player.Money)
+                        {
+                            player.Money -= car.ReplaceCost;
+                            car.Replace();
+                            Console.WriteLine("Replaced");
+                        }
+                        else Console.WriteLine("Not enough money for replace");
                 }
                 else if (choice == 4) break;
                 else Console.WriteLine("Try Again");
-            } while ((!car.CanMove() && player.Money <= 0) ||choice!=4);
+            } while (choice!=4);
 
             Console.WriteLine("Game over");
             Console.Read();

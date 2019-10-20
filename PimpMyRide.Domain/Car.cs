@@ -4,10 +4,10 @@ namespace PimpMyRide.Domain
 {
     public class Car
     {
-        private Engine Engine { get; }
-        private Accumulator Accumulator { get; }
-        private Disk[] Disks { get; }
-        private int Way { get; set; }
+        public Engine Engine { get; }
+        public Accumulator Accumulator { get; }
+        public Disk[] Disks { get; }
+        public int Way { get; private set; }
 
 
         public Car(Engine engine, Accumulator accumulator, Disk[] disks)
@@ -117,7 +117,7 @@ namespace PimpMyRide.Domain
             }
         }
 
-        public (bool repairable, decimal price, int Durability, int Capacity) CanRepair
+        public (bool repairable, decimal repairPrice,bool isBroken) CanRepair
         {
             get
             {
@@ -127,7 +127,7 @@ namespace PimpMyRide.Domain
                 if (Disks[1].CanRepair.repairable) return Disks[1].CanRepair;
                 if (Disks[2].CanRepair.repairable) return Disks[2].CanRepair;
                 if (Disks[3].CanRepair.repairable) return Disks[3].CanRepair;
-                return (false, 0, 0, 0);
+                return (false, 0,false);
             }
         }
 
@@ -135,12 +135,12 @@ namespace PimpMyRide.Domain
         {
             get
             {
-                if (Engine.IsBroken) return Engine.ReplaceCost;
-                if (Accumulator.IsBroken) return Accumulator.ReplaceCost;
-                if (Disks[0].IsBroken) return Disks[0].ReplaceCost;
-                if (Disks[1].IsBroken) return Disks[1].ReplaceCost;
-                if (Disks[2].IsBroken) return Disks[2].ReplaceCost;
-                if (Disks[3].IsBroken) return Disks[3].ReplaceCost;
+                if (Engine.IsBroken) return Engine.BuyPrice;
+                if (Accumulator.IsBroken) return Accumulator.BuyPrice;
+                if (Disks[0].IsBroken) return Disks[0].BuyPrice;
+                if (Disks[1].IsBroken) return Disks[1].BuyPrice;
+                if (Disks[2].IsBroken) return Disks[2].BuyPrice;
+                if (Disks[3].IsBroken) return Disks[3].BuyPrice;
                 return 0;
             }
         }
