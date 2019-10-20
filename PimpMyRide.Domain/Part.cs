@@ -22,22 +22,25 @@ namespace PimpMyRide.Domain
 
         public void DecreaseDurability()
         {
-            Durability--;
+            Durability-=5;
         }
 
         public void Repair()
         {
-            Durability++;
-            Capacity--;
+            Durability+=10;
+            Capacity-=10;
         }
 
-        public decimal Replace()
+        public void Replace()
         {
             Durability = 100;
             Capacity = 100;
-            return BuyPrice;
+            
         }
 
-        public (bool repairable, decimal price) CanRepair => (Capacity > 0, RepairPrice);
+        public (bool repairable, decimal price,int Durability,int Capacity) CanRepair => (Capacity > 0, RepairPrice,Durability,Capacity);
+        public decimal ReplaceCost => BuyPrice;
+        public int GetDurability => Durability;
+        public int GetCapacily => Capacity;
     }
 }

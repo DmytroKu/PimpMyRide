@@ -8,6 +8,7 @@ namespace PimpMyRide.Domain
         private Accumulator Accumulator { get; }
         private Disk[] Disks { get; }
         private int way { get; set; }
+        
 
         public Car(Engine engine, Accumulator accumulator, Disk[] disks)
         {
@@ -21,7 +22,7 @@ namespace PimpMyRide.Domain
             Disks = disks;
         }
 
-        public void Move()
+        public decimal Move()
         {
             way += 10;
             Engine.DecreaseDurability();
@@ -30,6 +31,8 @@ namespace PimpMyRide.Domain
             {
                 disks.DecreaseDurability();
             }
+
+            return 5;//Your salary
         }
 
         public bool CanMove() =>
@@ -40,39 +43,43 @@ namespace PimpMyRide.Domain
             && !Disks[2].IsBroken
             && !Disks[3].IsBroken;
 
-        public decimal Replace()
+        public void Replace()
         {
             if (Engine.IsBroken)
             {
-                return Engine.Replace();
+                Engine.Replace();
+                return;
             }
 
             if (Accumulator.IsBroken)
             {
-                return Accumulator.Replace();
+                Accumulator.Replace();
+                return;
             }
 
             if (Disks[1].IsBroken)
             {
-                return Disks[1].Replace();
+                Disks[1].Replace();
+                return;
             }
 
             if (Disks[0].IsBroken)
             {
-                return Disks[0].Replace();
+                Disks[0].Replace();
+                return;
             }
 
             if (Disks[2].IsBroken)
             {
-               return  Disks[2].Replace();
+                Disks[2].Replace();
+                return;
             }
 
             if (Disks[3].IsBroken)
             {
-               return Disks[3].Replace();
+                Disks[3].Replace();
+                return;
             }
-
-            return 0;
         }
 
         public void Repair()
@@ -112,9 +119,11 @@ namespace PimpMyRide.Domain
                 Disks[3].Repair();
                 return;
             }
+
+            
         }
 
-        public (bool repairable, decimal price) CanRepair
+        public (bool repairable, decimal price,int Durability,int Capacity) CanRepair
         {
             get
             {
@@ -124,8 +133,23 @@ namespace PimpMyRide.Domain
                 if (Disks[1].CanRepair.repairable) return Disks[1].CanRepair;
                 if (Disks[2].CanRepair.repairable) return Disks[2].CanRepair;
                 if (Disks[3].CanRepair.repairable) return Disks[3].CanRepair;
-                return (false, 0);
+                return (false, 0,0,0);
             }
         }
+        public  decimal  ReplaceCost
+        {
+            get
+            {
+                if (Engine.IsBroken) return Engine.ReplaceCost;
+                if (Accumulator.IsBroken) return Accumulator.ReplaceCost;
+                if (Disks[0].IsBroken) return Disks[0].ReplaceCost;
+                if (Disks[1].IsBroken) return Disks[1].ReplaceCost;
+                if (Disks[2].IsBroken) return Disks[2].ReplaceCost;
+                if (Disks[3].IsBroken) return Disks[3].ReplaceCost;
+                return  0;
+            }
+        }
+       
+
     }
 }
