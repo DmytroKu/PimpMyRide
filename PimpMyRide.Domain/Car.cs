@@ -31,7 +31,7 @@ namespace PimpMyRide.Domain
             return 5; //Your salary
         }
 
-        public bool CanMove() =>
+        public bool CanMove =>
             !Engine.IsBroken
             && !Accumulator.IsBroken
             && !Disks[1].IsBroken
