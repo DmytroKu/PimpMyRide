@@ -9,17 +9,7 @@ namespace PimpMyRide.ConsoleApp
         {
             Console.WriteLine("Game started");
             var player = new Player(1000);
-            var engine = new Engine(100, 1500, 40, 25);
-            var accumulator = new Accumulator(70, 80, 25, 20);
-            var disks = new Disk[]
-            {
-                new Disk(50, 45, 15, 30),
-                new Disk(40, 45, 15, 30),
-                new Disk(30, 45, 15, 30),
-                new Disk(10, 45, 15, 30),
-            };
-            int choice;
-            var car = new Car(engine, accumulator, disks);
+            var car = LoadCar() ?? CreateCar();
             while (true)
             {
                 Console.WriteLine($"Your balance is:{player.Money}");
@@ -35,6 +25,7 @@ namespace PimpMyRide.ConsoleApp
                 Console.WriteLine("3x-Repair");
                 Console.WriteLine("4x-Replace");
                 ShowState(car);
+                int choice;
                 while (!int.TryParse(Console.ReadLine(), out choice))
                 {
                     Console.WriteLine("Invalid number");
@@ -105,11 +96,37 @@ namespace PimpMyRide.ConsoleApp
                     ReplacePart(car.Disks[3], player);
                 }
                 else Console.WriteLine("Nothing to do");
+
+                SaveCar(car);
             }
 
             Console.WriteLine("Game over");
             Console.WriteLine($"Final score is:{car.Way}");
             Console.Read();
+        }
+
+        private static Car? LoadCar()
+        {
+            return null;
+        }
+
+        private static void SaveCar(Car car)
+        {
+        }
+
+        private static Car CreateCar()
+        {
+            var engine = new Engine(100, 150, 40, 25);
+            var accumulator = new Accumulator(70, 80, 25, 20);
+            var disks = new Disk[]
+            {
+                new Disk(50, 45, 15, 30),
+                new Disk(40, 45, 15, 30),
+                new Disk(30, 45, 15, 30),
+                new Disk(10, 45, 15, 30),
+            };
+            var car = new Car(engine, accumulator, disks);
+            return car;
         }
 
         private static void ReplacePart(Part part, Player player)
