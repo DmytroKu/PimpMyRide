@@ -1,4 +1,4 @@
-﻿namespace PimpMyRide.ConsoleApp
+﻿namespace PimpMyRide.Domain
 {
     public class CarModel
     {

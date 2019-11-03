@@ -1,9 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Text.Json;
-using PimpMyRide.Domain;
 
-namespace PimpMyRide.ConsoleApp
+namespace PimpMyRide.Domain
 {
     public class FileRepository
     {
@@ -41,7 +40,7 @@ namespace PimpMyRide.ConsoleApp
             var carModel = new CarModel(engine, accumulator, disks);
             var carBytes = JsonSerializer.SerializeToUtf8Bytes(carModel);
             var carFile = File.Create("car.json");
-            carFile.Write(carBytes);
+            carFile.Write(carBytes,0,carBytes.Length);
             carFile.Close();
         }
     }
