@@ -3,13 +3,13 @@ using PimpMyRide.Domain;
 
 namespace PimpMyRide.ConsoleApp
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Console.WriteLine("Game started");
             var player = new Player(1000);
-            var car = LoadCar() ?? CreateCar();
+            var car = FileRepository.LoadCar() ?? CreateCar();
             while (true)
             {
                 Console.WriteLine($"Your balance is:{player.Money}");
@@ -97,7 +97,7 @@ namespace PimpMyRide.ConsoleApp
                 }
                 else Console.WriteLine("Nothing to do");
 
-                SaveCar(car);
+                FileRepository.SaveCar(car);
             }
 
             Console.WriteLine("Game over");
@@ -105,14 +105,6 @@ namespace PimpMyRide.ConsoleApp
             Console.Read();
         }
 
-        private static Car? LoadCar()
-        {
-            return null;
-        }
-
-        private static void SaveCar(Car car)
-        {
-        }
 
         private static Car CreateCar()
         {
@@ -174,8 +166,9 @@ namespace PimpMyRide.ConsoleApp
 
         private static void ShowInfo(Part part)
         {
-            Console.WriteLine($"Durability: {part.Durability}; Capacity: {part.Capacity} ; IsBroken:{part.IsBroken};" +
-                              $" RepairCost: {part.RepairPrice}; ReplaceCost: {part.BuyPrice}");
+            Console.WriteLine(
+                $"Durability: {part.Durability}; Capacity: {part.Capacity} ; IsBroken:{part.IsBroken};" +
+                $" RepairCost: {part.RepairPrice}; ReplaceCost: {part.BuyPrice}");
         }
     }
 }

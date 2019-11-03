@@ -13,8 +13,8 @@ namespace PimpMyRide.Domain
 
         protected Part(int durability, decimal buyPrice, decimal repairPrice, int capacity)
         {
-            if (durability <= 0 || durability > 100) throw new ArgumentOutOfRangeException(nameof(durability));
-            if (capacity <= 0 || capacity > 100) throw new ArgumentOutOfRangeException(nameof(capacity));
+            if (durability < 0 || durability > 100) throw new ArgumentOutOfRangeException(nameof(durability));
+            if (capacity < 0 || capacity > 100) throw new ArgumentOutOfRangeException(nameof(capacity));
             Durability = durability;
             BuyPrice = buyPrice;
             RepairPrice = repairPrice;
