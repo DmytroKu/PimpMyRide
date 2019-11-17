@@ -12,7 +12,8 @@ namespace PimpMyRide.WindowsFormsApp
 {
     public partial class PimpMyRideForm : Form
     {
-        public bool chosen;
+        public int? choice;
+
         public PimpMyRideForm()
         {
             InitializeComponent();
@@ -21,13 +22,19 @@ namespace PimpMyRide.WindowsFormsApp
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            chosen = textBox1.Text.EndsWith(Environment.NewLine);
+
+            if (int.TryParse(textBox1.Text.Split(Environment.NewLine).Last(), out var input))
+            {
+                choice = input;
+                
+            }
         }
+
         private void WriteTextSafe(string text)
         {
             if (textBox1.InvokeRequired)
             {
-                textBox1.Invoke((Action<string>)WriteTextSafe, text);
+                textBox1.Invoke((Action<string>) WriteTextSafe, text);
             }
             else
             {
@@ -39,11 +46,16 @@ namespace PimpMyRide.WindowsFormsApp
         {
             WriteTextSafe(text);
         }
+
         public void AppendLine(string text)
         {
             Append(text);
             Append(Environment.NewLine);
         }
 
+        public void RequestInput()
+        {
+            Invoke((Action) (() => choice = null));
+        }
     }
 }

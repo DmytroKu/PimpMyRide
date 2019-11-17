@@ -40,14 +40,15 @@ namespace PimpMyRide.WindowsFormsApp
             Form.AppendLine("1-Move");
             Form.AppendLine("2-End Game");
             Form.AppendLine("3x-Repair");
+         
             Form.AppendLine("4x-Replace");
-            int choice;
-            while (!int.TryParse(Form.textBox1.Text.Split(Environment.NewLine).Last(), out choice))
+            Form.RequestInput();
+            while (!Form.choice.HasValue)
             {
                 Thread.Sleep(1);
             }
 
-            return choice;
+            return Form.choice.Value;
         }
 
         protected override void InformMoneyIsOver()
