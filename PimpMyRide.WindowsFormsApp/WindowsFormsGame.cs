@@ -1,4 +1,8 @@
-﻿using PimpMyRide.Domain;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
+using PimpMyRide.Domain;
 
 namespace PimpMyRide.WindowsFormsApp
 {
@@ -10,74 +14,106 @@ namespace PimpMyRide.WindowsFormsApp
         {
             Form = form;
         }
-        protected override void ShowState()
+        protected override void InformGameOver()
         {
-            throw new System.NotImplementedException();
-        }
-
-        protected override void InformGameStarted()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override void InformBalance()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override void InformMoneyIsOver()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override int RequestChoice()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override void InformMove()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override void InformCantMove()
-        {
-            throw new System.NotImplementedException();
+            Form.AppendLine("Game over");
+            Form.AppendLine($"Final score is:{Car.Way}");
         }
 
         protected override void InformNothingToDo()
         {
-            throw new System.NotImplementedException();
+            Form.AppendLine("Nothing to do");
         }
 
-        protected override void InformGameOver()
+        protected override void InformCantMove()
         {
-            throw new System.NotImplementedException();
+            Form.AppendLine("Can't move\nRepair your car");
         }
+
+        protected override void InformMove()
+        {
+            Form.AppendLine("Move");
+        }
+
+        protected override int RequestChoice()
+        {
+            Form.AppendLine("1-Move");
+            Form.AppendLine("2-End Game");
+            Form.AppendLine("3x-Repair");
+            Form.AppendLine("4x-Replace");
+            int choice;
+            while (!int.TryParse(Form.textBox1.Text.Split(Environment.NewLine).Last(), out choice))
+            {
+                Thread.Sleep(1);
+            }
+
+            return choice;
+        }
+
+        protected override void InformMoneyIsOver()
+        {
+            Form.AppendLine("Money is over");
+        }
+
+        protected override void InformBalance()
+        {
+            Form.AppendLine($"Your balance is:{Player.Money}");
+        }
+
+        protected override void InformGameStarted()
+        {
+            Form.AppendLine("Game started");
+        }
+
 
         protected override void InformNotReplacedBecauseOfBalance()
         {
-            throw new System.NotImplementedException();
+            Form.AppendLine("Not enough money for replace");
         }
 
         protected override void InformReplace()
         {
-            throw new System.NotImplementedException();
+            Form.AppendLine("Replaced");
         }
+
 
         protected override void InformUnrepairable()
         {
-            throw new System.NotImplementedException();
+            Form.AppendLine("Cannot repair");
         }
 
         protected override void InformNotRepairedBecauseOfBalance()
         {
-            throw new System.NotImplementedException();
+            Form.AppendLine("Not enough money for repair");
         }
 
         protected override void InformRepaired()
         {
-            throw new System.NotImplementedException();
+            Form.AppendLine("Repaired");
+        }
+
+        protected override void ShowState()
+        {
+            Form.AppendLine("State of Car");
+            Form.Append("1.[Engine] ");
+            ShowInfo(Car.Engine);
+            Form.Append("2.[Accumulator] ");
+            ShowInfo(Car.Accumulator);
+            Form.Append("3.[Left front disk] ");
+            ShowInfo(Car.Disks[0]);
+            Form.Append("4.[Right front disk] ");
+            ShowInfo(Car.Disks[1]);
+            Form.Append("5.[Left rear disk] ");
+            ShowInfo(Car.Disks[2]);
+            Form.Append("6.[Right rear disk] ");
+            ShowInfo(Car.Disks[3]);
+        }
+
+        public void ShowInfo(Part part)
+        {
+            Form.AppendLine(
+                $"Durability: {part.Durability}; Capacity: {part.Capacity} ; IsBroken:{part.IsBroken};" +
+                $" RepairCost: {part.RepairPrice}; ReplaceCost: {part.BuyPrice}");
         }
     }
 }

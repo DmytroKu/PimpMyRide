@@ -21,8 +21,9 @@ namespace PimpMyRide.WindowsFormsApp
             Application.SetCompatibleTextRenderingDefault(false);
             var pimpMyRideForm = new PimpMyRideForm();
             var game = new WindowsFormsGame(pimpMyRideForm);
-            game.Run();
-            Application.Run(pimpMyRideForm);
+            ApplicationContext context = new ApplicationContext(pimpMyRideForm);
+            Task.Run(() => game.Run());
+            Application.Run(context);
         }
     }
 }
