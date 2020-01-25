@@ -1,10 +1,15 @@
 ﻿using System;
 using PimpMyRide.Domain;
+using PimpMyRide.Domain.SQLStorage;
 
 namespace PimpMyRide.ConsoleApp
 {
     public class ConsoleGame : Game
     {
+        public ConsoleGame():base(new SQLRepository())
+        {
+            
+        }
         protected override void InformGameOver()
         {
             Console.WriteLine("Game over");

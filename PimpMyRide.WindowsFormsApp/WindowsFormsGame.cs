@@ -1,19 +1,18 @@
-﻿using System;
-using System.Linq;
+﻿using PimpMyRide.Domain;
+using PimpMyRide.Domain.FileStorage;
 using System.Threading;
-using System.Windows.Forms;
-using PimpMyRide.Domain;
 
 namespace PimpMyRide.WindowsFormsApp
 {
-    public class WindowsFormsGame:Game
+    public class WindowsFormsGame : Game
     {
         private PimpMyRideForm Form { get; }
 
-        public WindowsFormsGame(PimpMyRideForm form)
+        public WindowsFormsGame(PimpMyRideForm form) : base(new FileRepository())
         {
             Form = form;
         }
+
         protected override void InformGameOver()
         {
             Form.AppendLine("Game over");
@@ -40,7 +39,7 @@ namespace PimpMyRide.WindowsFormsApp
             Form.AppendLine("1-Move");
             Form.AppendLine("2-End Game");
             Form.AppendLine("3x-Repair");
-         
+
             Form.AppendLine("4x-Replace");
             Form.RequestInput();
             while (!Form.choice.HasValue)
