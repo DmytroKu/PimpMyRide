@@ -1,12 +1,16 @@
-﻿namespace PimpMyRide.Domain
+﻿using PimpMyRide.Domain.FileStorage;
+
+namespace PimpMyRide.Domain
 {
     public abstract class Game
     {
         protected Game()
         {
             Player = new Player(1000);
-            Car = FileRepository.LoadCar() ?? CreateCar();
+            Repository = new FileRepository();
+            Car = Repository.LoadCar() ?? CreateCar();
         }
+        private IRepository Repository { get; }
 
         protected Car Car { get; }
 
@@ -109,7 +113,7 @@
                 }
                 else InformNothingToDo();
 
-                FileRepository.SaveCar(Car);
+                Repository.SaveCar(Car);
             }
 
             InformGameOver();

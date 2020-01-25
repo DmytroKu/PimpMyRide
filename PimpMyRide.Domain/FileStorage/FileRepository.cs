@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Text.Json;
 
-namespace PimpMyRide.Domain
+namespace PimpMyRide.Domain.FileStorage
 {
-    public class FileRepository
+    public class FileRepository : IRepository
     {
-        public static Car? LoadCar()
+        public Car? LoadCar()
         {
             if (!File.Exists("car.json"))
                 return null;
@@ -27,7 +27,7 @@ namespace PimpMyRide.Domain
             return new Car(engine, accumulator, disks);
         }
 
-        public static void SaveCar(Car car)
+        public void SaveCar(Car car)
         {
             var engine = new PartModel(car.Engine.Durability,
                 car.Engine.BuyPrice, car.Engine.RepairPrice,
@@ -40,7 +40,7 @@ namespace PimpMyRide.Domain
             var carModel = new CarModel(engine, accumulator, disks);
             var carBytes = JsonSerializer.SerializeToUtf8Bytes(carModel);
             var carFile = File.Create("car.json");
-            carFile.Write(carBytes,0,carBytes.Length);
+            carFile.Write(carBytes, 0, carBytes.Length);
             carFile.Close();
         }
     }

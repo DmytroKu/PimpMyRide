@@ -1,4 +1,4 @@
-﻿namespace PimpMyRide.Domain
+﻿namespace PimpMyRide.Domain.FileStorage
 {
     public class PartModel
     {
