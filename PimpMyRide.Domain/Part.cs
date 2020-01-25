@@ -31,12 +31,14 @@ namespace PimpMyRide.Domain
         {
             Durability = 100;
             Capacity -= 10;
+            IsBroken = false;
         }
 
         public void Replace()
         {
             Durability = 100;
             Capacity = 100;
+            IsBroken = false;
         }
 
         public bool Repairable => (Capacity > 0);
