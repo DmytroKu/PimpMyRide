@@ -4,11 +4,11 @@ using System.Threading;
 
 namespace PimpMyRide.WindowsFormsApp
 {
-    public class WindowsFormsGame : Game
+    public class WindowsFormsGameService : GameService
     {
         private PimpMyRideForm Form { get; }
 
-        public WindowsFormsGame(PimpMyRideForm form) : base(new FileRepository())
+        public WindowsFormsGameService(PimpMyRideForm form) : base(new FileRepository())
         {
             Form = form;
         }

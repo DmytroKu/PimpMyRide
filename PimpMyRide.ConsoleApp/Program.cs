@@ -4,7 +4,7 @@
     {
        public static void Main()
         {
-            var game = new ConsoleGame();
+            var game = new ConsoleGameService();
             game.Run();
         }
     }

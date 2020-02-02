@@ -13,7 +13,7 @@ namespace PimpMyRide.WindowsFormsApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var pimpMyRideForm = new PimpMyRideForm();
-            var game = new WindowsFormsGame(pimpMyRideForm);
+            var game = new WindowsFormsGameService(pimpMyRideForm);
             ApplicationContext context = new ApplicationContext(pimpMyRideForm);
             Task.Run(() => game.Run());
             Application.Run(context);

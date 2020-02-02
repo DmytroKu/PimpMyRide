@@ -4,9 +4,9 @@ using PimpMyRide.Domain.SQLStorage;
 
 namespace PimpMyRide.ConsoleApp
 {
-    public class ConsoleGame : Game
+    public class ConsoleGameService : GameService
     {
-        public ConsoleGame():base(new SQLRepository())
+        public ConsoleGameService():base(new SQLRepository())
         {
             
         }

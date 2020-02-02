@@ -1,8 +1,8 @@
 ﻿namespace PimpMyRide.Domain
 {
-    public abstract class Game
+    public abstract class GameService
     {
-        protected Game(IRepository repository)
+        protected GameService(IRepository repository)
         {
             Player = new Player(1000);
             Repository = repository;
