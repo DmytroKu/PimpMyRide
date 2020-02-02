@@ -2,7 +2,7 @@
 {
     public interface IRepository
     {
-        Car? LoadCar();
-        void SaveCar(Car car);
+        Game? LoadGame();
+        void SaveGame(Game game);
     }
 }

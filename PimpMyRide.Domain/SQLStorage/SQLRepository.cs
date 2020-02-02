@@ -21,7 +21,7 @@ namespace PimpMyRide.Domain.SQLStorage
             {EngineId, AccumulatorId, LeftFrontDiskId, LeftRareDiskId, RightFrontDiskId, RightRareDiskId};
 
 
-        public Car? LoadCar()
+        public Game? LoadGame()
         {
             using var context = new PimpMyRideContext();
             var carModel = context.Cars!.Find(CarId);
@@ -50,14 +50,17 @@ namespace PimpMyRide.Domain.SQLStorage
             var rightRareDiskModel = partModels.Single(x => x.Id == RightRareDiskId);
             var RightRareDisk = new Disk(rightRareDiskModel.Durability, rightRareDiskModel.BuyPrice,
                 rightRareDiskModel.RepairPrice, rightRareDiskModel.Capacity);
-
-            return new Car(Engine, Accumulator, new[] {LeftFrontDisk, LeftRareDisk, RightFrontDisk, RightRareDisk});
+            var car = new Car(Engine, Accumulator, new[] {LeftFrontDisk, LeftRareDisk, RightFrontDisk, RightRareDisk});
+            //Todo:load player
+            var game = new Game(car, new Player(0));
+            return game;
         }
 
-        public void SaveCar(Car car)
+        public void SaveGame(Game game)
         {
             using var context = new PimpMyRideContext();
-
+            //Todo: save player
+            var car = game.Car;
             var exists = context.Cars!.AsNoTracking().Any(x => x.Id == CarId);
 
             var partModels = new[]

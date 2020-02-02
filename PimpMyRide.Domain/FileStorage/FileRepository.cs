@@ -6,7 +6,7 @@ namespace PimpMyRide.Domain.FileStorage
 {
     public class FileRepository : IRepository
     {
-        public Car? LoadCar()
+        public Game? LoadGame()
         {
             if (!File.Exists("car.json"))
                 return null;
@@ -24,11 +24,15 @@ namespace PimpMyRide.Domain.FileStorage
             var disks = carModel.Disks
                     !.Select(x => new Disk(x.Durability, x.BuyPrice, x.RepairPrice, x.Capacity))
                 .ToArray();
-            return new Car(engine, accumulator, disks);
+            var car = new Car(engine, accumulator, disks);
+            //Todo: load player
+            return new Game(car ,new Player(0));
         }
 
-        public void SaveCar(Car car)
+        public void SaveGame(Game game)
         {
+            //Todo: save game,player
+            var car = game.Car;
             var engine = new PartModel(car.Engine.Durability,
                 car.Engine.BuyPrice, car.Engine.RepairPrice,
                 car.Engine.IsBroken, car.Engine.Capacity);

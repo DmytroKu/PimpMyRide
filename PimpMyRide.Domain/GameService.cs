@@ -4,18 +4,17 @@
     {
         protected GameService(IRepository repository)
         {
-            Player = new Player(1000);
             Repository = repository;
-            Car = Repository.LoadCar() ?? CreateCar();
+            Game = Repository.LoadGame() ?? CreateGame();
         }
 
         private IRepository Repository { get; }
 
-        protected Car Car { get; }
+        private Game Game { get; }
+        protected Car Car => Game.Car;
+        protected Player Player => Game.Player;
 
-        protected Player Player { get; }
-
-        private static Car CreateCar()
+        private static Game CreateGame()
         {
             var engine = new Engine(100, 150, 40, 25);
             var accumulator = new Accumulator(70, 80, 25, 20);
@@ -27,7 +26,8 @@
                 new Disk(10, 45, 15, 30),
             };
             var car = new Car(engine, accumulator, disks);
-            return car;
+            var player  = new Player(1000);
+            return new Game(car,player);
         }
 
         public void Run()
@@ -112,7 +112,7 @@
                 }
                 else InformNothingToDo();
 
-                Repository.SaveCar(Car);
+                Repository.SaveGame(Game);
             }
 
             InformGameOver();
