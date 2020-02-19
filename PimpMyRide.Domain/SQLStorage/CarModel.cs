@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PimpMyRide.Domain.SQLStorage
 {
     public class CarModel
     {
-        [Key]
+        [Key]//primary
         public int Id { get; set; }
         public int EngineId { get; set; } 
         public int AccumulatorId { get; set; }

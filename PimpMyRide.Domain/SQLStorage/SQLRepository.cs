@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace PimpMyRide.Domain.SQLStorage
 {
     public class SQLRepository : IRepository
     {
+        private const int GameId = 1;
         private const int CarId = 1;
         private const int EngineId = 1;
+        private const int PlayerId = 1;
         private const int AccumulatorId = 2;
         private const int LeftFrontDiskId = 3;
         private const int LeftRareDiskId = 4;
@@ -24,12 +22,9 @@ namespace PimpMyRide.Domain.SQLStorage
         public Game? LoadGame()
         {
             using var context = new PimpMyRideContext();
-            var carModel = context.Cars!.Find(CarId);
-            if (carModel == null)
-            {
-                return null;
-            }
-
+            var gameModel = context.Games!.Find(GameId);
+            if (gameModel == null) return null;
+            var playerModel = context.Players.Single(x => x.Id == PlayerId);
             var partModels = context.Parts!.Where(x => PartsId.Contains(x.Id)).ToList();
             var engine = partModels.Single(x => x.Id == EngineId);
             var Engine = new Engine(engine.Durability, engine.BuyPrice, engine.RepairPrice, engine.Capacity);
@@ -50,18 +45,21 @@ namespace PimpMyRide.Domain.SQLStorage
             var rightRareDiskModel = partModels.Single(x => x.Id == RightRareDiskId);
             var RightRareDisk = new Disk(rightRareDiskModel.Durability, rightRareDiskModel.BuyPrice,
                 rightRareDiskModel.RepairPrice, rightRareDiskModel.Capacity);
-            var car = new Car(Engine, Accumulator, new[] {LeftFrontDisk, LeftRareDisk, RightFrontDisk, RightRareDisk});
-            //Todo:load player
-            var game = new Game(car, new Player(0));
+            var car = new Car(Engine, Accumulator,
+                new[] {LeftFrontDisk, LeftRareDisk, RightFrontDisk, RightRareDisk});
+            var player =new Player(playerModel.Money);
+            //Todo:load player DONE
+            var game = new Game(car, player);
             return game;
         }
 
         public void SaveGame(Game game)
         {
             using var context = new PimpMyRideContext();
-            //Todo: save player
+            //Todo: save player DONE
             var car = game.Car;
-            var exists = context.Cars!.AsNoTracking().Any(x => x.Id == CarId);
+            var player = game.Player;
+            var exists = context.Games!.AsNoTracking().Any(x => x.Id == GameId);
 
             var partModels = new[]
             {
@@ -86,15 +84,25 @@ namespace PimpMyRide.Domain.SQLStorage
             var carModel = new CarModel(CarId, EngineId, AccumulatorId, LeftFrontDiskId, LeftRareDiskId,
                 RightFrontDiskId,
                 RightRareDiskId);
+            var playerModel = new PlayerModel(PlayerId, player.Money);
+            var gameModel = new GameModel(GameId, CarId, PlayerId);
+
             if (!exists)
             {
-                context.Parts!.AddRange(partModels);
+                context.Players!.AddRange(playerModel);
                 context.Cars!.AddRange(carModel);
+                context.Games!.AddRange(gameModel);
+                context.Parts!.AddRange(partModels);
+                
+                
+                
             }
             else
             {
                 context.Parts!.UpdateRange(partModels);
                 context.Cars!.UpdateRange(carModel);
+                context.Players!.UpdateRange(playerModel);
+                context.Games!.UpdateRange(gameModel);
             }
 
             context.SaveChanges();
