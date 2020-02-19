@@ -1,12 +1,13 @@
 ﻿using System;
 using PimpMyRide.Domain;
+using PimpMyRide.Domain.FileStorage;
 using PimpMyRide.Domain.SQLStorage;
 
 namespace PimpMyRide.ConsoleApp
 {
     public class ConsoleGameService : GameService
     {
-        public ConsoleGameService():base(new SQLRepository())
+        public ConsoleGameService():base(new FileRepository())
         {
             
         }

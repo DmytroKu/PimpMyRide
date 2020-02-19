@@ -8,11 +8,12 @@ namespace PimpMyRide.Domain.FileStorage
     {
         public Game? LoadGame()
         {
-            if (!File.Exists("car.json"))
+            if (!File.Exists("game.json"))
                 return null;
-            var carString = File.ReadAllText("car.json");
-            var carModel = JsonSerializer.Deserialize<CarModel>(carString);
-            var engineModel = carModel.Engine!;
+            var gameString = File.ReadAllText("game.json");
+            var gameModel = JsonSerializer.Deserialize<GameModel>(gameString);
+            var carModel = gameModel.Car;
+            var engineModel = carModel!.Engine!;
             var engine = new Engine(engineModel.Durability, engineModel.BuyPrice,
                 engineModel.RepairPrice, engineModel.Capacity);
             var accumulatorModel = carModel.Accumulator!;
@@ -25,13 +26,16 @@ namespace PimpMyRide.Domain.FileStorage
                     !.Select(x => new Disk(x.Durability, x.BuyPrice, x.RepairPrice, x.Capacity))
                 .ToArray();
             var car = new Car(engine, accumulator, disks);
-            //Todo: load player
-            return new Game(car ,new Player(0));
+            var playerModel = gameModel.Player;
+            var player = new Player(playerModel!.Money);
+
+            //Todo: load player DONE
+            return new Game(car ,player);
         }
 
         public void SaveGame(Game game)
         {
-            //Todo: save game,player
+            //Todo: save game,player DONE
             var car = game.Car;
             var engine = new PartModel(car.Engine.Durability,
                 car.Engine.BuyPrice, car.Engine.RepairPrice,
@@ -42,10 +46,13 @@ namespace PimpMyRide.Domain.FileStorage
             var disks = car.Disks.Select(x => new PartModel(x.Durability,
                 x.BuyPrice, x.RepairPrice, x.IsBroken, x.Capacity)).ToArray();
             var carModel = new CarModel(engine, accumulator, disks);
-            var carBytes = JsonSerializer.SerializeToUtf8Bytes(carModel);
-            var carFile = File.Create("car.json");
-            carFile.Write(carBytes, 0, carBytes.Length);
-            carFile.Close();
+            var player = game.Player;
+            var playerModel = new PlayerModel(player.Money);
+            var gameModel = new GameModel(playerModel,carModel);
+            var gameBytes = JsonSerializer.SerializeToUtf8Bytes(gameModel);
+            var gameFile = File.Create("game.json");
+            gameFile.Write(gameBytes, 0, gameBytes.Length);
+            gameFile.Close();
         }
     }
 }
