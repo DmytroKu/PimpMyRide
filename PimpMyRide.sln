@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PimpMyRide.Domain", "PimpMy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PimpMyRide.ConsoleApp", "PimpMyRide.ConsoleApp\PimpMyRide.ConsoleApp.csproj", "{500BEB42-2D60-414C-90B1-B0F7C2B2CF83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PimpMyRide.WindowsFormsApp", "PimpMyRide.WindowsFormsApp\PimpMyRide.WindowsFormsApp.csproj", "{07CE4CDA-7ECD-407C-BF07-39EC2BA8CBA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PimpMyRide.WindowsFormsApp", "PimpMyRide.WindowsFormsApp\PimpMyRide.WindowsFormsApp.csproj", "{07CE4CDA-7ECD-407C-BF07-39EC2BA8CBA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PimpMyRide.ServerApp", "PimpMyRide.ServerApp\PimpMyRide.ServerApp.csproj", "{956A9466-9AB9-4D23-9642-B56B60D8F221}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{07CE4CDA-7ECD-407C-BF07-39EC2BA8CBA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07CE4CDA-7ECD-407C-BF07-39EC2BA8CBA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07CE4CDA-7ECD-407C-BF07-39EC2BA8CBA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{956A9466-9AB9-4D23-9642-B56B60D8F221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{956A9466-9AB9-4D23-9642-B56B60D8F221}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{956A9466-9AB9-4D23-9642-B56B60D8F221}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{956A9466-9AB9-4D23-9642-B56B60D8F221}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
