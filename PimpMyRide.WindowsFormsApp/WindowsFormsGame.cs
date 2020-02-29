@@ -39,7 +39,6 @@ namespace PimpMyRide.WindowsFormsApp
             Form.AppendLine("1-Move");
             Form.AppendLine("2-End Game");
             Form.AppendLine("3x-Repair");
-
             Form.AppendLine("4x-Replace");
             Form.RequestInput();
             while (!Form.choice.HasValue)

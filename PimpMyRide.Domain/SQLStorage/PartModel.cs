@@ -6,7 +6,7 @@ namespace PimpMyRide.Domain.SQLStorage
     {
        [Key] public int Id { get; set; }
         public int Durability { get; set; }
-        public decimal BuyPrice { get; set; }
+        public decimal BuyPrice { get; set; }   
         public decimal RepairPrice { get; set; }
         public bool IsBroken { get; set; }
         public int Capacity { get; set; }

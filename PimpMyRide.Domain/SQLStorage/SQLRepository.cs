@@ -48,7 +48,6 @@ namespace PimpMyRide.Domain.SQLStorage
             var car = new Car(Engine, Accumulator,
                 new[] {LeftFrontDisk, LeftRareDisk, RightFrontDisk, RightRareDisk});
             var player =new Player(playerModel.Money);
-            //Todo:load player DONE
             var game = new Game(car, player);
             return game;
         }
@@ -56,7 +55,6 @@ namespace PimpMyRide.Domain.SQLStorage
         public void SaveGame(Game game)
         {
             using var context = new PimpMyRideContext();
-            //Todo: save player DONE
             var car = game.Car;
             var player = game.Player;
             var exists = context.Games!.AsNoTracking().Any(x => x.Id == GameId);

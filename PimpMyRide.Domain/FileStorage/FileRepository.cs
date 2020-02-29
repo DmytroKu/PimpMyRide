@@ -29,13 +29,11 @@ namespace PimpMyRide.Domain.FileStorage
             var playerModel = gameModel.Player;
             var player = new Player(playerModel!.Money);
 
-            //Todo: load player DONE
             return new Game(car ,player);
         }
 
         public void SaveGame(Game game)
         {
-            //Todo: save game,player DONE
             var car = game.Car;
             var engine = new PartModel(car.Engine.Durability,
                 car.Engine.BuyPrice, car.Engine.RepairPrice,
