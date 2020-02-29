@@ -22,6 +22,7 @@ namespace PimpMyRide.ServerApp
         [HttpGet("run")]
         public Task Run()
         {
+            _logger.LogInformation("run");
             gameService = new ServerGameService(new FileRepository());
             Task.Run(() => gameService.Run());
             return Task.CompletedTask;
@@ -31,11 +32,16 @@ namespace PimpMyRide.ServerApp
         [HttpGet("choice")]
         public Task MakeChoice(int choice)
         {
+            _logger.LogInformation("choice");
             gameService.SaveChoice(choice);
             return Task.CompletedTask;
         }
 
         [HttpGet("info")]
-        public Task<string[]> GetInfo() => Task.FromResult(gameService.GetInfo());
+        public Task<string[]> GetInfo()
+        {
+            _logger.LogInformation("info");
+            return Task.FromResult(gameService.GetInfo());
+        } 
     }
 }
