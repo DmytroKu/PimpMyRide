@@ -9,7 +9,7 @@ namespace PimpMyRide.ServerApp
     public class ServerGameService : GameService
     {
         private Queue<string> InfoQueue { get; }
-        private int? Choice { get;  set; }
+        private int? Choice { get; set; }
 
         public ServerGameService(IRepository repository) : base(repository)
         {
@@ -99,25 +99,18 @@ namespace PimpMyRide.ServerApp
         protected override void ShowState()
         {
             InfoQueue.Enqueue("State of Car");
-            Console.Write("1.[Engine] ");
-            ShowInfo(Car.Engine);
-            Console.Write("2.[Accumulator] ");
-            ShowInfo(Car.Accumulator);
-            Console.Write("3.[Left front disk] ");
-            ShowInfo(Car.Disks[0]);
-            Console.Write("4.[Right front disk] ");
-            ShowInfo(Car.Disks[1]);
-            Console.Write("5.[Left rear disk] ");
-            ShowInfo(Car.Disks[2]);
-            Console.Write("6.[Right rear disk] ");
-            ShowInfo(Car.Disks[3]);
+            InfoQueue.Enqueue($"1.[Engine] {ShowInfo(Car.Engine)}");
+            InfoQueue.Enqueue($"2.[Accumulator] {ShowInfo(Car.Accumulator)}");
+            InfoQueue.Enqueue($"3.[Left front disk] {ShowInfo(Car.Disks[0])}");
+            InfoQueue.Enqueue($"4.[Right front disk] {ShowInfo(Car.Disks[1])}");
+            InfoQueue.Enqueue($"5.[Left rear disk] {ShowInfo(Car.Disks[2])}");
+            InfoQueue.Enqueue($"6.[Right rear disk] {ShowInfo(Car.Disks[3])}");
         }
 
-        public void ShowInfo(Part part)
+        private string ShowInfo(Part part)
         {
-            InfoQueue.Enqueue(
-                $"Durability: {part.Durability}; Capacity: {part.Capacity} ; IsBroken:{part.IsBroken};" +
-                $" RepairCost: {part.RepairPrice}; ReplaceCost: {part.BuyPrice}");
+            return $"Durability: {part.Durability}; Capacity: {part.Capacity} ; IsBroken:{part.IsBroken};" +
+                   $" RepairCost: {part.RepairPrice}; ReplaceCost: {part.BuyPrice}";
         }
 
         public void SaveChoice(int choice)
@@ -133,8 +126,8 @@ namespace PimpMyRide.ServerApp
             {
                 list.Add(InfoQueue.Dequeue());
             }
-            return list.ToArray();
 
+            return list.ToArray();
         }
     }
 }
