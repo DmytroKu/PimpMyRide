@@ -1,5 +1,22 @@
 ﻿@page "/"
+@using System.Threading
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<h1>Game</h1>
+@foreach (var line in text.Value)
+{
+    @line<br/>
+}
+
+
+@code {
+    public Text text { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        text = new Text();
+        text.Run(() => InvokeAsync(StateHasChanged));
+    }
+
+}
+
