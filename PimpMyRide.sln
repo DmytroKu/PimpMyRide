@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PimpMyRide.WindowsFormsApp"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PimpMyRide.ServerApp", "PimpMyRide.ServerApp\PimpMyRide.ServerApp.csproj", "{956A9466-9AB9-4D23-9642-B56B60D8F221}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApp", "ClientApp\ClientApp.csproj", "{65A25277-F883-4C97-926E-AD931A4850F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApp", "ClientApp\ClientApp.csproj", "{65A25277-F883-4C97-926E-AD931A4850F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
